@@ -20,6 +20,14 @@ pipeline {
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
         }
+	stage("Docker build"){
+            steps {
+				sh 'docker version'
+				sh "docker build -t siva/eta-app:${BUILD_NUMBER} ."
+				sh 'docker image list'
+				sh "docker tag siva/eta-app:${BUILD_NUMBER} loksaieta/loksai-eta-app:latest"
+            }
+        }
         stage('Deploy to QA Server') {
             steps {
 		script {
