@@ -36,7 +36,8 @@ pipeline {
 	    stage('Login2DockerHub') {
 
 			steps {
-				sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+				sh "echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin"
+
 			}
 		}
         stage('Approve - push Image to dockerhub'){
