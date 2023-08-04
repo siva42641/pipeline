@@ -40,16 +40,7 @@ pipeline {
 
 			}
 		}
-        stage('Approve - push Image to dockerhub'){
-            steps{
-                
-                //----------------send an approval prompt-------------
-                script {
-                   env.APPROVED_DEPLOY = input message: 'User input required Choose "yes" | "Abort"'
-                       }
-                //-----------------end approval prompt------------
-            }
-        }
+        
 		stage('Push2DockerHub') {
 
 			steps {
