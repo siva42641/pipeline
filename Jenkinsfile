@@ -30,7 +30,7 @@ pipeline {
 				sh 'docker version'
 				sh "docker build -t siva/eta-app:${BUILD_NUMBER} ."
 				sh 'docker image list'
-				sh "docker tag siva/eta-app:${BUILD_NUMBER} siva42641/eta-app:latest"
+				sh "docker tag siva/eta-app:${BUILD_NUMBER} siva42641/eta-app:${BUILD_NUMBER}"
             }
         }
 	    stage('Login2DockerHub') {
@@ -44,7 +44,7 @@ pipeline {
 		stage('Push2DockerHub') {
 
 			steps {
-				sh "docker push siva42641/eta-app:latest"
+				sh "docker push siva42641/eta-app:${BUILD_NUMBER}"
 			}
 		}
         stage('Approve - Deployment to Kubernetes Cluster'){
