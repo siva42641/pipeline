@@ -5,6 +5,11 @@ pipeline {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "maven3.9"
     }
+	environment {	
+		DOCKER_REGISTRY = 'your.docker.registry'
+        	DOCKER_USERNAME = credentials('DOCKERHUB_CREDENTIALS_USR') // Assuming you have a Jenkins credential with ID 'docker-username' for Docker username
+        	DOCKER_PASSWORD = credentials('DOCKERHUB_CREDENTIALS_PSW') 
+	}
 
     stages {
         stage('SCM Checkout') {
@@ -31,7 +36,7 @@ pipeline {
 	    stage('Login2DockerHub') {
 
 			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+				sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
 			}
 		}
         stage('Approve - push Image to dockerhub'){
